@@ -4,8 +4,8 @@ import './App.css';
 //instead of the TOP project, I'm going to make my a text based version of the classic name all fifty states game
 
 const App = () => {
-  //create component that plays the game
-  // create shame box
+  //create win logic
+  //fix state table
   //create landing graphic and instructions
   const input = useRef('')
   const [found, setFound] = useState([]);
@@ -33,29 +33,38 @@ const App = () => {
   }
 
   const beautifyString = (string) => {
-    let prettyString = string.charAt(0).toUpperCase() + string.slice(1).toLowerCase()
+    let stringArray = string.split(' ');
+    let prettyArray = stringArray.map(word =>
+      word = word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+    let prettyString = prettyArray.join(' ')
     return prettyString
   }
 
+
+  let finds = 0;
+  let shames = 0;
   const foundItems = found.sort().map((state) =>
-      <li>{state}</li>
+      <li key= {finds++}>{state}</li>
   );
 
   const shameBoxContents = shame.map((disgrace) => 
-      <li>{disgrace}</li>
+      <li key={shames++}>{disgrace}</li>
   )
 
 
 
 
   return (
-    <div>
-      <input type='text' ref={input} onKeyDown={handleKeyPress}></input>
-      <ol>{foundItems}</ol>
-      <ul>
-        <h3>Shame Box</h3>
-        {shameBoxContents}
-      </ul>
+    <div id="appBox">
+      <input type='text' id="inputBox" ref={input} onKeyDown={handleKeyPress}></input>
+      <ol id="foundItems">{foundItems}</ol>
+      <div id="shameBox">
+        <h3 id="shameBoxHead">Shame Box</h3>
+          <ul>
+            {shameBoxContents}
+          </ul>
+          <h5 id="shameBoxFoot">*Ignore if not from the United States</h5>
+      </div>
     </div>
   )
 
